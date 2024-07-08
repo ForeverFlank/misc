@@ -105,10 +105,13 @@ P4: 0
             fade += 0.03;
             if (fade > 1) clearInterval(interval);
         }, 10);
-        setTimeout(() => {
-            var num = Math.floor(Math.random() * 6) + 1;
-            numElement.innerText = num;
-        }, 20);
+        var num = Math.floor(Math.random() * 6);
+        var count = 0;
+        var interval2 = setInterval(() => {
+            numElement.innerText = 1 + (Math.floor(1000 + num + 10 * count - count * count) % 6)
+            count += 0.1;
+            if (count > 5) clearInterval(interval2);
+        }, 30);
     }
     dice('num')
     function dragElement(elmnt) {
