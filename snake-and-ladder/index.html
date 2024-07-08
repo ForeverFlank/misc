@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+        * {
+            font-family: "Roboto", sans-serif;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; background-color: black; display: flex; justify-content: center;">
+    <img src="./board.png" draggable="false" style="
+        z-index: -5;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 600px">
+
+
+    <div id="pawn-1" style="
+    position: absolute;
+    left: 0em;
+    width: 2em;
+    height: 2em;
+    background-color: rgb(241, 107, 219);">
+        <p style="margin-top: 0.1em ; text-align: center; font-size: x-large; user-select: none;">1</p>
+    </div>
+    <div id="pawn-2" style="
+    position: absolute;
+    left: 2em;
+    width: 2em;
+    height: 2em;
+    background-color: rgb(84, 160, 237);">
+        <p style="margin-top: 0.1em ; text-align: center; font-size: x-large; user-select: none;">2</p>
+    </div>
+    <div id="pawn-3" style="
+    position: absolute;
+    left: 4em;
+    width: 2em;
+    height: 2em;
+    background-color: rgb(235, 227, 117);">
+        <p style="margin-top: 0.1em ; text-align: center; font-size: x-large; user-select: none;">3</p>
+    </div>
+    <div id="pawn-4" style="
+    position: absolute;
+    left: 6em;
+    width: 2em;
+    height: 2em;
+    background-color: rgb(110, 205, 118);">
+        <p style="margin-top: 0.1em ; text-align: center; font-size: x-large; user-select: none;">4</p>
+    </div>
+</body>
+
+<script>
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id)) {
+            // if present, the header is where you move the DIV from:
+            document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+        } else {
+            // otherwise, move the DIV from anywhere inside the DIV:
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            // stop moving when mouse button is released:
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    dragElement(document.getElementById("pawn-1"));
+    dragElement(document.getElementById("pawn-2"));
+    dragElement(document.getElementById("pawn-3"));
+    dragElement(document.getElementById("pawn-4"));
+</script>
+
+</html>
