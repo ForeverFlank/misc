@@ -25,7 +25,8 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 600px">
+        width: 600px;
+        user-select: none;">
 
 
     <div id="pawn-1" style="
@@ -60,9 +61,36 @@
     background-color: rgb(110, 205, 118);">
         <p style="margin-top: 0.1em ; text-align: center; font-size: x-large; user-select: none;">4</p>
     </div>
+
+    <div style="
+    position: absolute;
+    left: 0em;
+    top: 5em;
+    padding: 0.5em;
+    background-color: black;
+    border: 2px solid white;
+    ">
+    <p style="color: white; margin: 0;">Totally Fair<br>Dice Emulator&trade;</p>
+    <p id="num" style="color: white; font-size: 2em; margin: 0.1em;">0</p>
+    <button style="cursor: pointer; outline: none; color: white; background-color: black; border: 2px solid white;" onclick="dice('num')">Randomize</button>
+    </div>
 </body>
 
 <script>
+    function dice(id) {
+        var numElement = document.getElementById(id);
+        var fade = 0;
+        var interval = setInterval(() => {
+            numElement.style.opacity = fade;
+            fade += 0.03;
+            if (fade > 1) clearInterval(interval);
+        }, 10);
+        setTimeout(() => {
+            var num = Math.floor(Math.random() * 6) + 1;
+            numElement.innerText = num;
+        }, 20);
+    }
+    dice('num')
     function dragElement(elmnt) {
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id)) {
